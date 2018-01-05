@@ -4,34 +4,12 @@
   	for (set<int>::iterator itr = playersOnline.begin(); itr != playersOnline.end(); itr++) 
 {
 		Player [*itr].Disconnect();
-	} для перебора. надо проверить правильность.
-добавить класс сервера. авторизацию.паблик дисконнекта
+	} для перебора.
  */
-//int CreateDynamicObject( int modelid, double x, double y, double z, double rx, double ry, double rz, int worldid, int interiorid, int playerid, float streamdistance, float drawdistance, int areaid, int priority )
-//{
-// 	static AMX_NATIVE Native = sampgdk_FindNative( "CreateDynamicObject" );
-// 	if( Native != NULL ) return sampgdk_InvokeNative( Native, "iffffffiiiffii", modelid, static_cast< float > ( x ), static_cast< float > ( y ), static_cast< float > ( z ), static_cast< float > ( rx ), static_cast< float > ( ry ), static_cast< float > ( rz ), worldid, interiorid, playerid, streamdistance, drawdistance, areaid, priority );
-//}
-//
-//int CreateDynamicPickup( int modelid, int type, float x, float y, float z, int worldid, int interiorid, int playerid, float streamdistance, int areaid, int priority )
-//{
-//	static AMX_NATIVE Native = sampgdk_FindNative( "CreateDynamicPickup" );
-//	if( Native != NULL ) return sampgdk_InvokeNative( Native, "iifffiiifii", modelid, type, x, y, z, worldid, interiorid, playerid, streamdistance, areaid, priority );
-//}
 
 
 PLUGIN_EXPORT bool PLUGIN_CALL OnGameModeInit()
 {
-	int a = GetTickCount();
-	for (int i = 0; i < 100000; i++)
-	{
-		OnPlayerCommandText(0, "/weapon");
-	//	OnPlayerCommandText(0, "/hello ebet");
-	//	OnPlayerCommandText(0, "/buy kurey");
-	}
-	int b = GetTickCount();
-	sampgdk::logprintf("strcmd took %dms", b - a);
-	int hellloo = CreateObject(43, 5.55, 5.55, 5.55, 5.55, 5.55, 5.55, 100);
 	return true;
 }
 

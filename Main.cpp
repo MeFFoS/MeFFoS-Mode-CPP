@@ -49,7 +49,7 @@ PLUGIN_EXPORT bool PLUGIN_CALL OnPlayerText(int playerid, const char* cmdtext)
 PLUGIN_EXPORT bool PLUGIN_CALL OnPlayerCommandText(int playerid, const char* cmdtext)
 {
 	string temp[2];
-	for(int i = 0, g = 0; i < strlen(cmdtext);i++)
+	for(int i = 0, g = 0, k = strlen(cmdtext); i < k;i++)
 	{
 		if (cmdtext[i] == ' ' && g == 0) break;
 		temp[g].push_back(cmdtext[i]);
@@ -92,7 +92,7 @@ void AddCommands()
 {
 	for(int i = 0; i < sizeof(commands)/sizeof(commands[0]); i++)
 	{
-		CommandMap.emplace(commands[i].names, commands[i].ptr);
+		CommandMap.emplace(move(commands[i].names), move(commands[i].ptr));
 	}
 }
 

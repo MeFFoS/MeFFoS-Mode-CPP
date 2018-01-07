@@ -6,7 +6,19 @@
 		Player [*itr].Disconnect();
 	} для перебора.
  */
+set<int> playersOnline;
+array <Player, MAX_PLAYERS> players;
+Server server;
 
+unordered_map<string, bool(*)(int&, string&)> CommandMap;
+struct Commands
+{
+	string names;
+	bool(*ptr)(int&, string&);
+};
+const Commands commands[] = { { "/weapon", cmd_weapon },{ "/hello", cmd_hello },{ "/buy", cmd_buy },{ "/hellno", cmd_buy } };
+
+bool(*DialogsFunc[]) (int&, int&, int&, const char *) = { dialog_Auth, dialog_Register };
 
 PLUGIN_EXPORT bool PLUGIN_CALL OnGameModeInit()
 {
@@ -61,35 +73,7 @@ PLUGIN_EXPORT bool PLUGIN_CALL OnPlayerRequestClass(int playerid, int classid)
 
 PLUGIN_EXPORT bool PLUGIN_CALL OnDialogResponse(int playerid, int dialogid, int response, int listitem, const char *inputtext)
 {
-	switch (dialogid)
-	{
-		case 1:
-		{
-			if (response)
-			{
-				players[playerid].password = inputtext;
-				players[playerid].AddAccount();
-			}
-			break;
-		}
-		case 2:
-		{
-			if (response)
-			{
-				if(players[playerid].password == inputtext)
-				{
-					players[playerid].auth = true;
-					SendClientMessage(playerid, -1, "Успешная авторизация");
-				}
-				else
-				{
-					SendClientMessage(playerid, -1, "Пароль неверный");
-					Kick(playerid);
-				}
-			}
-			break;
-		}
-	}
+	DialogsFunc[dialogid](playerid, response, listitem, inputtext);
 	return true;
 }
 

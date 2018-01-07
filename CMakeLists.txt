@@ -31,10 +31,13 @@ add_samp_plugin(MeFFoS
   Server.h
   Player.cpp
   Player.h
+  Commands.cpp
   Commands.h
   streamer.cpp
   streamer.hpp
   callbacksPlugins.cpp
+  Dialogs.cpp
+  Dialogs.h
 )
 
 target_link_libraries(${PROJECT_NAME} mysqlcppconn)

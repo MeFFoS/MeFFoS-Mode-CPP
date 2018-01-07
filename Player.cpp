@@ -5,7 +5,7 @@
 #include <set>
 #include "Server.h"
 #include "Player.h"
-
+#include "Dialogs.h"
 
 extern set<int> playersOnline;
 extern Server server;
@@ -36,7 +36,7 @@ void Player::Connect(string playerName, int playerId)
 }
 void Player::Authorization()
 {
-	ShowPlayerDialog(id, 2, DIALOG_STYLE_INPUT, "Авторизация", "Добро пожаловать на сервер, ебашьте пароль", "Ввод", "Отмена");
+	ShowPlayerDialog(id, Dialogs::Auth, DIALOG_STYLE_INPUT, "Авторизация", "Добро пожаловать на сервер, ебашьте пароль", "Ввод", "Отмена");
 }
 void Player::Disconnect()
 {
@@ -91,5 +91,5 @@ void Player::LoadAccount(sql::ResultSet *result)
 void Player::Registration()
 {
 	level = 1;
-	ShowPlayerDialog(id, 1, DIALOG_STYLE_INPUT, "Авторизация", "Добро пожаловать на сервер, ебашьте регу", "Рега", "Отмена");
+	ShowPlayerDialog(id, Dialogs::Register, DIALOG_STYLE_INPUT, "Авторизация", "Добро пожаловать на сервер, ебашьте регу", "Рега", "Отмена");
 }

@@ -38,6 +38,8 @@ add_samp_plugin(MeFFoS
   callbacksPlugins.cpp
   Dialogs.cpp
   Dialogs.h
+  Functions.cpp
+  Functions.h
 )
 
 target_link_libraries(${PROJECT_NAME} mysqlcppconn)

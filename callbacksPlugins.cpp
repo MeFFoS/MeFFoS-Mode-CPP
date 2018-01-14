@@ -4,6 +4,9 @@
 */
 
 #include "streamer.hpp"
+#include "Functions.h"
+#include <unordered_map>
+extern std::unordered_map <std::string, int> Timers[MAX_PLAYERS];
 
 PLUGIN_EXPORT bool PLUGIN_CALL OnPublicCall(AMX * amx, const char * name, cell * params, cell * retval)
 {
@@ -82,15 +85,30 @@ bool OnPlayerLeaveDynamicRaceCP( int playerid, int checkpointid )
 	return 1;
 }
 
+extern int zone;
+
 bool OnPlayerEnterDynamicArea( int playerid, int areaid )
 {
-	// your plugin's code
+	if (areaid == zone)
+	{
+		std::string name = "dynamictimer";
+		Timers[playerid].emplace(name, SetTimer(1000, true, TestTimer, (void *)playerid));
+	}
 	return 1;
 }
 
 bool OnPlayerLeaveDynamicArea( int playerid, int areaid )
 {
-	// your plugin's code
+	if (areaid == zone)
+	{
+		std::string name = "dynamictimer";
+		std::unordered_map<std::string, int>::const_iterator iter = Timers[playerid].find(name);
+		if (iter != Timers[playerid].end())
+		{
+			KillTimer(iter->second);
+			Timers[playerid].erase(iter);
+		}
+	}
 	return 1;
 }
 

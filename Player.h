@@ -1,5 +1,4 @@
 #pragma once
-//#include "Player.cpp"
 #include "mysql_connection.h"
 #include <cppconn/driver.h>
 #include <cppconn/exception.h>

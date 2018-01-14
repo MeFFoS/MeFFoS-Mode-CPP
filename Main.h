@@ -10,8 +10,6 @@
 #include "Server.h"
 #include <streamer.hpp>
 #include <unordered_map>
-
 #include "Commands.h"
-
-
 #include "Dialogs.h"
+#include "Functions.h"

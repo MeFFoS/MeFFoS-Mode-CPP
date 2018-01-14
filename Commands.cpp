@@ -1,9 +1,10 @@
-#pragma once
 #include <string>
+#include "sampgdk.h"
 using namespace std;
 
 bool cmd_weapon(int &playerid, string &params)
 {
+	GivePlayerWeapon(playerid, 24, 100);
 	return true;
 }
 

@@ -1,9 +1,9 @@
-#pragma once
 #include "sampgdk.h"
 #include <array>
+#include "Dialogs.h"
 #include "Player.h"
 
-extern std::array <Player, MAX_PLAYERS> players;
+extern array <Player, MAX_PLAYERS> players;
 
 bool dialog_Auth(int &playerid, int &response, int &listitem, const char *inputtext)
 {

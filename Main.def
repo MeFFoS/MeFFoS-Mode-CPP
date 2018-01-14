@@ -7,7 +7,7 @@ EXPORTS
 	OnDialogResponse
 	OnPlayerDisconnect
 	OnPlayerSpawn
-	OnPlayerClickMap 
+	OnPlayerClickMap
 	OnPlayerText
 	OnPlayerCommandText
 	OnGameModeInit
@@ -61,3 +61,4 @@ EXPORTS
 	OnPlayerRequestClass
 	OnPlayerStreamOut
 	OnRconLoginAttempt
+	OnPublicCall

@@ -20,8 +20,14 @@ const Commands commands[] = { { "/weapon", cmd_weapon },{ "/hello", cmd_hello },
 
 bool(*DialogsFunc[]) (int&, int&, int&, const char *) = { dialog_Auth, dialog_Register };
 
+unordered_map <string, int> Timers[MAX_PLAYERS];
+
+int zone;
+
 PLUGIN_EXPORT bool PLUGIN_CALL OnGameModeInit()
 {
+	int supertest = Plugins::Streamer::Object::Create(1337, 1844.2172f, -1869.1250f, 13.3897f, 1844.2172f, -1869.1250f, 13.3897f);
+	zone = Plugins::Streamer::Area::CreateRectangle(1827.1022f, -1874.2893f, 1810.5925f, -1857.8458f);
 	return true;
 }
 
@@ -35,8 +41,8 @@ PLUGIN_EXPORT bool PLUGIN_CALL OnPlayerConnect(int playerid)
 
 bool SetSpawnPlayer(int playerid)
 {
-	SetPlayerPos(playerid, 1844.2172, -1869.1250, 13.3897);
-	SetPlayerFacingAngle(playerid, 277.8018);
+	SetPlayerPos(playerid, 1844.2172f, -1869.1250f, 13.3897f);
+	SetPlayerFacingAngle(playerid, 277.8018f);
 	SetPlayerSkin(playerid, 23);
 	return true;
 }
@@ -94,6 +100,11 @@ void AddCommands()
 	{
 		CommandMap.emplace(move(commands[i].names), move(commands[i].ptr));
 	}
+}
+
+void CreateDynamicZones()
+{
+	
 }
 
 PLUGIN_EXPORT bool PLUGIN_CALL Load(void **ppData)

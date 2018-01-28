@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS `accounts`;
 CREATE TABLE `accounts` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(24) DEFAULT NULL,
-  `password` varchar(36) DEFAULT NULL,
+  `password` varchar(100) DEFAULT NULL,
   `level` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

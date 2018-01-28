@@ -16,7 +16,7 @@ struct Commands
 	string names;
 	bool(*ptr)(int&, string&);
 };
-const Commands commands[] = { { "/weapon", cmd_weapon },{ "/hello", cmd_hello },{ "/buy", cmd_buy },{ "/hellno", cmd_buy } };
+const Commands commands[] = { { "/weapon", cmd_weapon },{ "/hello", cmd_hello },{ "/buy", cmd_buy },{ "/тест", cmd_weapon } };
 
 bool(*DialogsFunc[]) (int&, int&, int&, const char *) = { dialog_Auth, dialog_Register };
 
@@ -54,15 +54,21 @@ PLUGIN_EXPORT bool PLUGIN_CALL OnPlayerText(int playerid, const char* cmdtext)
 
 PLUGIN_EXPORT bool PLUGIN_CALL OnPlayerCommandText(int playerid, const char* cmdtext)
 {
-	string temp[2];
-	for(int i = 0, g = 0, k = strlen(cmdtext); i < k;i++)
+	string temp;
+	int pos = 0;
+	for (int k = strlen(cmdtext); pos < k; pos++)
 	{
-		if (cmdtext[i] == ' ' && g == 0) break;
-		temp[g].push_back(cmdtext[i]);
+		if (cmdtext[pos] == ' ') 
+		{	
+			pos++;
+			break;
+		}
+		temp.push_back(cmdtext[pos]);
 	}
-	unordered_map<string, bool(*)(int&, string&)>::const_iterator iter = CommandMap.find(temp[0]);
-	if (iter != CommandMap.end()) iter->second(playerid, temp[1]);
-	else SendClientMessage(playerid,-1,"Команды не существует!");
+	
+	unordered_map<string, bool(*)(int&, string&)>::const_iterator iter = CommandMap.find(temp);
+	if (iter != CommandMap.end()) iter->second(playerid, (string)&cmdtext[pos]);
+	else SendClientMessage(playerid, -1, "Команды не существует!");
 	return true;
 }
 

@@ -1,5 +1,4 @@
 #include <string>
-#include <fstream>
 #include "sampgdk.h"
 #include <set>
 #include "Server.h"
@@ -19,7 +18,7 @@ void Player::Connect(string playerName, int playerId)
 	pstmt = server.con->prepareStatement("SELECT * FROM accounts WHERE name = ?");
 	pstmt->setString(1, name);
 	result = pstmt->executeQuery();
-	if (result->next())//!result->wasNull()
+	if (result->next())
 	{
 		SendClientMessage(id, -1, "Аккаунт зарегистрирован");
 		LoadAccount(result);

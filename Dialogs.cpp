@@ -2,6 +2,10 @@
 #include <array>
 #include "Dialogs.h"
 #include "Player.h"
+#include "sha384.h"
+#include "sha384.cpp"
+#include "Server.h"
+extern Server server;
 
 extern array <Player, MAX_PLAYERS> players;
 
@@ -9,7 +13,7 @@ bool dialog_Auth(int &playerid, int &response, int &listitem, const char *inputt
 {
 	if (response)
 	{
-		if (players[playerid].password == inputtext)
+		if (players[playerid].password == sha384(server.salt + inputtext))
 		{
 			players[playerid].auth = true;
 			SendClientMessage(playerid, -1, "Успешная авторизация");
@@ -27,7 +31,7 @@ bool dialog_Register(int &playerid, int &response, int &listitem, const char *in
 {
 	if (response)
 	{
-		players[playerid].password = inputtext;
+		players[playerid].password = sha384(server.salt + inputtext);
 		players[playerid].AddAccount();
 	}
 	return true;

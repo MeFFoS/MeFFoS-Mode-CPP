@@ -11,6 +11,7 @@ extern std::unordered_map <std::string, int> Timers[MAX_PLAYERS];
 PLUGIN_EXPORT bool PLUGIN_CALL OnPublicCall(AMX * amx, const char * name, cell * params, cell * retval)
 {
 	std::string lName = std::string(name);
+
 	if (lName == "OnDynamicObjectMoved") { return OnDynamicObjectMoved(static_cast< int >(params[1])); } // ( int objectid )
 	else if (lName == "OnPlayerEditDynamicObject") { return OnPlayerEditDynamicObject(static_cast< int >(params[1]), static_cast< int >(params[2]), static_cast< int >(params[3]), amx_ctof(params[4]), amx_ctof(params[5]), amx_ctof(params[6]), amx_ctof(params[7]), amx_ctof(params[8]), amx_ctof(params[9])); } // ( int playerid, int objectid, int response, float x, float y, float z, float rx, float ry, float rz )
 	else if (lName == "OnPlayerSelectDynamicObject") { return OnPlayerSelectDynamicObject(static_cast< int >(params[1]), static_cast< int >(params[2]), static_cast< int >(params[3]), amx_ctof(params[4]), amx_ctof(params[5]), amx_ctof(params[6])); } // ( int playerid, int objectid, int modelid, float x, float y, float z )
@@ -27,7 +28,20 @@ PLUGIN_EXPORT bool PLUGIN_CALL OnPublicCall(AMX * amx, const char * name, cell *
 	else if (lName == "OnDynamicActorStreamOut") { return OnDynamicActorStreamOut(static_cast< int >(params[1]), static_cast< int >(params[2])); } // ( int actorid, int forplayerid );
 	else if (lName == "Streamer_OnItemStreamIn") { return Streamer_OnItemStreamIn(static_cast< int >(params[1]), static_cast< int >(params[2])); } // ( int type, int id );
 	else if (lName == "Streamer_OnItemStreamOut") { return Streamer_OnItemStreamOut(static_cast< int >(params[1]), static_cast< int >(params[2])); } // ( int type, int id );
-																																					 //else if( lName == "Streamer_OnPluginError" ) { } // ( const char error[ ] ) - can't be made afaik because I would need a length parameter to know error's size before I retrieve it with amx
+	else if (lName == "Streamer_OnPluginError") // ( const char error[ ] )
+	{
+		cell * lAddress = nullptr;
+		amx_GetAddr(amx, params[1], &lAddress);
+
+		int lLength = 0;
+		amx_StrLen(lAddress, &lLength);
+
+		std::string lString(lLength, ' ');
+		amx_GetString(&lString[0], lAddress, 0, lLength + 1);
+
+		return Streamer_OnPluginError(lString.c_str());
+	}
+
 	return 1;
 }
 
@@ -142,7 +156,7 @@ bool Streamer_OnItemStreamOut( int type, int id )
 	return 1;
 }
 
-bool Streamer_OnPluginError( char error[ ] ) // unused
+bool Streamer_OnPluginError(const char error[])
 {
 	// your plugin's code
 	return 1;

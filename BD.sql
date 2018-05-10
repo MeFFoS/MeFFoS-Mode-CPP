@@ -26,3 +26,23 @@ CREATE TABLE `accounts` (
   `level` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for houses
+-- ----------------------------
+DROP TABLE IF EXISTS `houses`;
+CREATE TABLE `houses` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `owner` varchar(24) NOT NULL DEFAULT 'None',
+  `enterX` float DEFAULT NULL,
+  `enterY` float DEFAULT NULL,
+  `enterZ` float DEFAULT NULL,
+  `exitX` float DEFAULT NULL,
+  `exitY` float DEFAULT NULL,
+  `exitZ` float DEFAULT NULL,
+  `interior` int(11) DEFAULT NULL,
+  `price` int(11) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `virtualWorld` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

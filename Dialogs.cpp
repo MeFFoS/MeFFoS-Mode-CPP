@@ -5,8 +5,8 @@
 #include "sha384.h"
 #include "sha384.cpp"
 #include "Server.h"
-extern Server server;
 
+extern Server server;
 extern array <Player, MAX_PLAYERS> players;
 
 bool dialog_Auth(int &playerid, int &response, int &listitem, const char *inputtext)
@@ -33,6 +33,10 @@ bool dialog_Register(int &playerid, int &response, int &listitem, const char *in
 	{
 		players[playerid].password = sha384(server.salt + inputtext);
 		players[playerid].AddAccount();
+	}
+	else
+	{
+		Kick(playerid);
 	}
 	return true;
 }

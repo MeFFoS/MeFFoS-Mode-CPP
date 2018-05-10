@@ -22,7 +22,7 @@ public:
 		mysqlLogin,
 		mysqlPassword,
 		mysqlBd;
-	string  salt = "ASVsaB13C";
+	string salt = "ASVsaB13C";
 	sql::Driver *driver;
 	sql::Connection *con;
 	//sql::Statement *stmt;

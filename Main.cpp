@@ -3,12 +3,15 @@
 /*
   	for (set<int>::iterator itr = playersOnline.begin(); itr != playersOnline.end(); itr++) 
 {
-		Player [*itr].Disconnect();
+		players[*itr].Disconnect();
 	} для перебора.
  */
 set<int> playersOnline;
 array <Player, MAX_PLAYERS> players;
 Server server;
+
+vector<House> houses;
+unordered_map<int, int> pickup_Houses;
 
 unordered_map<string, bool(*)(int&, string&)> CommandMap;
 struct Commands
@@ -26,7 +29,9 @@ int zone;
 
 PLUGIN_EXPORT bool PLUGIN_CALL OnGameModeInit()
 {
-	int supertest = Plugins::Streamer::Object::Create(1337, 1844.2172f, -1869.1250f, 13.3897f, 1844.2172f, -1869.1250f, 13.3897f);
+	House::LoadHouses();
+
+	//int supertest = Plugins::Streamer::Object::Create(1337, 1844.2172f, -1869.1250f, 13.3897f, 1844.2172f, -1869.1250f, 13.3897f);
 	zone = Plugins::Streamer::Area::CreateRectangle(1827.1022f, -1874.2893f, 1810.5925f, -1857.8458f);
 	return true;
 }
@@ -108,11 +113,6 @@ void AddCommands()
 	}
 }
 
-void CreateDynamicZones()
-{
-	
-}
-
 PLUGIN_EXPORT bool PLUGIN_CALL Load(void **ppData)
 {
 	AddCommands();
@@ -131,6 +131,12 @@ PLUGIN_EXPORT void PLUGIN_CALL ProcessTick()
 
 PLUGIN_EXPORT bool PLUGIN_CALL OnGameModeExit()
 {
+	for (set<int>::iterator itr = playersOnline.begin(); itr != playersOnline.end(); itr++)
+	{
+		players[*itr].Disconnect();
+	}
+	for (int i = 0; i < houses.size(); i++)
+		House::SaveHouse(houses[i]);
 	return true;
 }
 
@@ -146,6 +152,7 @@ PLUGIN_EXPORT bool PLUGIN_CALL OnPlayerKeyStateChange(int playerid, int newkeys,
 
 PLUGIN_EXPORT bool PLUGIN_CALL OnPlayerPickUpPickup(int playerid, int pickupid)
 {
+	if (House::ProcessHouse(playerid, pickupid)) return true;	
 	return true;
 }
 

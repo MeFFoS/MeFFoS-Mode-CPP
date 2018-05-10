@@ -13,3 +13,4 @@
 #include "Commands.h"
 #include "Dialogs.h"
 #include "Functions.h"
+#include "House.h"

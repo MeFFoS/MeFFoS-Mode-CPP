@@ -6,7 +6,8 @@ Server::Server()
 {
 	setlocale(LC_CTYPE, "rus");
 	if (LoadInform()) sampgdk::logprintf(" Данные успешно загружены");
-	else {
+	else 
+	{
 		sampgdk::logprintf(" Данные не загружены");
 		SendRconCommand("exit");
 	}
@@ -20,6 +21,7 @@ Server::~Server()
 }
 void Server::ConnectMySQL()
 {
+	setlocale(LC_CTYPE, "rus");
 	connection_properties["hostName"] = mysqlIp;
 	connection_properties["userName"] = mysqlLogin;
 	connection_properties["password"] = mysqlPassword;
@@ -29,7 +31,6 @@ void Server::ConnectMySQL()
 	driver = get_driver_instance();
 	try 
 	{
-		setlocale(LC_CTYPE, "rus");
 		con = driver->connect(connection_properties);
 		sampgdk::logprintf(" Подключение к базе данных удачно");
 	}

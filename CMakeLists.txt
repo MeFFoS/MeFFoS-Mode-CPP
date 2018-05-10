@@ -40,6 +40,8 @@ add_samp_plugin(MeFFoS
   Dialogs.h
   Functions.cpp
   Functions.h
+  House.cpp
+  House.h
 )
 
 target_link_libraries(${PROJECT_NAME} mysqlcppconn)

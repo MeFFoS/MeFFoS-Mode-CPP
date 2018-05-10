@@ -1,5 +1,6 @@
 #include <string>
 #include "sampgdk.h"
+
 using namespace std;
 
 bool cmd_weapon(int &playerid, string &params)
